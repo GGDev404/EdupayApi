@@ -3,13 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
+  provider     = "postgres"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
-
-model actividadesextra {
-  Id           Int       @id @default(autoincrement())
+model ActividadExtra {
+ Id           Int       @id @default(autoincrement())
   Nombre       String?   @db.VarChar(50)
   Descripcion  String?   @db.VarChar(200)
   Precio       Decimal?  @db.Decimal(10, 2)
@@ -17,6 +16,15 @@ model actividadesextra {
   Fecha_Inicio DateTime? @db.Date
   Fecha_Fin    DateTime? @db.Date
 }
+
+model periodos {
+  Id           Int       @id @default(autoincrement())
+  Nombre       String?   @db.VarChar(100)
+  Precio       Decimal?  @db.Decimal(10, 2)
+  Fecha_Inicio DateTime? @db.Date
+  Fecha_Fin    DateTime? @db.Date
+}
+
 
 model grados {
   Id        Int     @id @default(autoincrement())
@@ -44,7 +52,7 @@ model metodospago {
 model pagos {
   Id                Int      @id @default(autoincrement())
   Monto             Decimal  @db.Decimal(10, 2)
-  Fecha_Pago        DateTime @default(now()) @db.DateTime(0)
+  Fecha_Pago        DateTime @default(now()) @db.Timestamp(0)
   MetodoPago        Int
   Referencia        String   @db.Char(10)
   Estado            String   @db.VarChar(50)
@@ -52,18 +60,11 @@ model pagos {
   Id_Periodo        Int
   Id_ActividadExtra Int
 
-  @@index([Id_ActividadExtra], map: "Id_ActividadExtra")
-  @@index([Id_Periodo], map: "Id_Periodo")
-  @@index([Id_Usuario], map: "Id_Usuario")
+  @@index([Id_ActividadExtra], map: "Idx_ActividadExtra")
+  @@index([Id_Periodo], map: "Idx_Periodo")
+  @@index([Id_Usuario], map: "Idx_Usuario")
 }
 
-model periodos {
-  Id           Int       @id @default(autoincrement())
-  Nombre       String?   @db.VarChar(100)
-  Precio       Decimal?  @db.Decimal(10, 2)
-  Fecha_Inicio DateTime? @db.Date
-  Fecha_Fin    DateTime? @db.Date
-}
 
 model usuarios {
   Id                Int     @id @default(autoincrement())
