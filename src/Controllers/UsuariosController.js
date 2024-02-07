@@ -55,7 +55,7 @@ const editaUsuario = async (req, res) => {
     if (!usuarioEditado) {
         return res.status(404).json({error : "Usuario no encontrado"})
     }
-     usuarioEditado = await prisma.usuarios.update({
+      await prisma.usuarios.update({
         where: {
           Id: parseInt(req.params.id)
         },
