@@ -70,7 +70,7 @@ model usuarios {
   Id                Int     @id @default(autoincrement())
   Nombre            String? @db.VarChar(100)
   Apellido          String? @db.VarChar(100)
-  CorreoElectronico String? @db.VarChar(50)
+  CorreoElectronico String? @unique @db.VarChar(50)
   Contrasena        String? @db.VarChar(200)
   FotoPerfil        String? @db.VarChar(200)
   Id_Periodo        Int?
