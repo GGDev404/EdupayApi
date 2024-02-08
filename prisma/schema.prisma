@@ -7,14 +7,17 @@ datasource db {
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
+
 model ActividadExtra {
- Id           Int       @id @default(autoincrement())
-  Nombre       String?   @db.VarChar(50)
-  Descripcion  String?   @db.VarChar(200)
-  Precio       Decimal?  @db.Decimal(10, 2)
-  Imagen       String?   @db.VarChar(200)
-  Fecha_Inicio DateTime? @db.Date
-  Fecha_Fin    DateTime? @db.Date
+  Id           Int                @id @default(autoincrement())
+  Nombre       String?            @db.VarChar(50)
+  Descripcion  String?            @db.VarChar(200)
+  Precio       Decimal?           @db.Decimal(10, 2)
+  Imagen       String?            @db.VarChar(200)
+  Fecha_Inicio DateTime?          @db.Date
+  Fecha_Fin    DateTime?          @db.Date
+  Usuario      UsuarioActividad[]
+  Pago         pagosActividades[]
 }
 
 model periodos {
@@ -23,24 +26,30 @@ model periodos {
   Precio       Decimal?  @db.Decimal(10, 2)
   Fecha_Inicio DateTime? @db.Date
   Fecha_Fin    DateTime? @db.Date
+  grado        grados[]
 }
 
-
 model grados {
-  Id        Int     @id @default(autoincrement())
-  Nombre    String? @db.VarChar(20)
+  Id        Int      @id @default(autoincrement())
+  Nombre    String?  @db.VarChar(20)
   IdPeriodo Int
+  periodo   periodos @relation(fields: [IdPeriodo], references: [Id])
+  grupo     grupos[]
 
   @@index([IdPeriodo], map: "IdPeriodo")
 }
 
 model grupos {
-  Id      Int     @id @default(autoincrement())
-  Nombre  String? @db.VarChar(50)
-  Cupo    Int?
-  IdGrado Int
+  Id          Int       @id @default(autoincrement())
+  Nombre      String?   @db.VarChar(50)
+  Cupo        Int?
+  IdGrado     Int
+  Id_usuarios Int
+  grado       grados    @relation(fields: [IdGrado], references: [Id])
+  usuario     usuarios? @relation(fields: [Id_usuarios], references: [Id])
 
   @@index([IdGrado], map: "IdGrado")
+  @@index([Id_usuarios])
 }
 
 model metodospago {
@@ -50,35 +59,57 @@ model metodospago {
 }
 
 model pagos {
-  Id                Int      @id @default(autoincrement())
-  Monto             Decimal  @db.Decimal(10, 2)
-  Fecha_Pago        DateTime @default(now()) @db.Timestamp(0)
-  MetodoPago        Int
-  Referencia        String   @db.Char(10)
-  Estado            String   @db.VarChar(50)
-  Id_Usuario        Int
-  Id_Periodo        Int
-  Id_ActividadExtra Int
+  Id          Int                @id @default(autoincrement())
+  Monto       Decimal            @db.Decimal(10, 2)
+  Fecha_Pago  DateTime           @default(now()) @db.Timestamp(0)
+  MetodoPago  Int
+  Referencia  String             @db.Char(10)
+  Estado      String             @db.VarChar(50)
+  Id_Usuario  Int
+  usuario     usuarios           @relation(fields: [Id_Usuario], references: [Id])
+  Actividades pagosActividades[]
 
-  @@index([Id_ActividadExtra], map: "Idx_ActividadExtra")
-  @@index([Id_Periodo], map: "Idx_Periodo")
   @@index([Id_Usuario], map: "Idx_Usuario")
 }
 
-
 model usuarios {
-  Id                Int     @id @default(autoincrement())
-  Nombre            String? @db.VarChar(100)
-  Apellido          String? @db.VarChar(100)
-  CorreoElectronico String? @unique @db.VarChar(50)
-  Contrasena        String? @db.VarChar(200)
-  FotoPerfil        String? @db.VarChar(200)
-  Id_Periodo        Int?
-  Id_Grado          Int?
+  Id                Int                @id @default(autoincrement())
+  Nombre            String?            @db.VarChar(100)
+  Apellido          String?            @db.VarChar(100)
+  CorreoElectronico String?            @unique @db.VarChar(50)
+  Contrasena        String?            @db.VarChar(200)
+  FotoPerfil        String?            @db.VarChar(200)
   Id_Grupo          Int?
-  Rol               String? @db.VarChar(50)
+  Rol               String?            @db.VarChar(50)
+  Id_tutor          Int?
+  grupo             grupos[]
+  Tutor             usuarios?          @relation("Padreada", fields: [Id_tutor], references: [Id], onDelete: Restrict, onUpdate: Restrict)
+  TutorDe           usuarios[]         @relation("Padreada")
+  pagos             pagos[]
+  Actividad         UsuarioActividad[]
 
-  @@index([Id_Grado], map: "Id_Grado")
   @@index([Id_Grupo], map: "Id_Grupo")
-  @@index([Id_Periodo], map: "Id_Periodo")
+  @@index([Id_tutor])
+}
+
+model UsuarioActividad {
+  Id_Usuario   Int
+  Id_Actividad Int
+  usuario      usuarios       @relation(fields: [Id_Usuario], references: [Id])
+  Actividad    ActividadExtra @relation(fields: [Id_Actividad], references: [Id])
+
+  @@id([Id_Usuario, Id_Actividad])
+  @@index([Id_Usuario])
+  @@index([Id_Actividad])
+}
+
+model pagosActividades {
+  Id_Pago      Int
+  Id_Actividad Int
+  pago         pagos          @relation(fields: [Id_Pago], references: [Id])
+  actividad    ActividadExtra @relation(fields: [Id_Actividad], references: [Id])
+
+  @@id([Id_Actividad, Id_Pago])
+  @@index([Id_Actividad])
+  @@index([Id_Pago])
 }

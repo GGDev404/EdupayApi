@@ -12,8 +12,8 @@ const obtenerUsuarios = async (req,res) => {
 }
 
 const crearUsuarios = async (req,res) =>{
-    const {Contrasena} = req.body
-    const ContraseñaHasheada = await encrypt(Contrasena)
+    
+    const ContraseñaHasheada = await encrypt(req.body.Contrasena)
     req.body.Contrasena = ContraseñaHasheada
     const nuevoUsuario = await prisma.usuarios.create(
         {
