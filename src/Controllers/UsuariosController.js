@@ -3,18 +3,23 @@ import { error } from "console";
 import { encrypt, compare } from '../helpper/handleBcryps.js';
 const prisma = new PrismaClient();
 
-const obtenerUsuarios = async (req,res) => {
-    const usuarios = await prisma.usuarios.findMany({
-        include : {
-            Tutor : true,
-            TutorDe : true,
-            Grupo : true
-        }
-    })
-    if (!usuarios) {
-        return res.status(404).json({error : "Error al obtener usuarios"})
+const obtenerPadres = async (req, res) => {
+    try {
+        const usuarios = await prisma.usuarios.findMany({
+            where : {
+                Rol : "Padre"
+            },
+            include: {
+                TutorDe: true,
+            },
+           
+        });
+
+        return res.json(usuarios);
+    } catch (error) {
+        console.error("Error al obtener usuarios:", error);
+        return res.status(500).json({ error: "Error interno del servidor" });
     }
-    return res.json(usuarios)
 }
 
 const crearUsuarios = async (req,res) =>{
@@ -99,7 +104,7 @@ const obtenerHijos = async (req,res) => {
 }
 
 export {
-    obtenerUsuarios,
+    obtenerPadres,
     obtenerUsuarioPorId,
     editaUsuario,
     eliminarUsuario,
