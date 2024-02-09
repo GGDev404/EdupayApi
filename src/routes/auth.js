@@ -9,7 +9,7 @@ router.post("/login", async (req, res) => {
     const { CorreoElectronico, Contrasena } = req.body;
 
     try {
-        const usuario = await prisma.usuarios.findFirst({
+        const usuario = await prisma.usuarios.findUnique({
             where: {
                 CorreoElectronico: CorreoElectronico
             }
