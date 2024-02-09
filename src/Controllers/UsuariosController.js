@@ -4,7 +4,13 @@ import { encrypt, compare } from '../helpper/handleBcryps.js';
 const prisma = new PrismaClient();
 
 const obtenerUsuarios = async (req,res) => {
-    const usuarios = await prisma.usuarios.findMany()
+    const usuarios = await prisma.usuarios.findMany({
+        include : {
+            Tutor : true,
+            TutorDe : true,
+            Grupo : true
+        }
+    })
     if (!usuarios) {
         return res.status(404).json({error : "Error al obtener usuarios"})
     }
@@ -75,11 +81,28 @@ const eliminarUsuario = async (req,res) =>{
     }
     return res.json('Usuario Eliminado')
 }
+const obtenerHijos = async (req,res) => {
+    const usuario = await prisma.usuarios.findUnique({
+        where : {
+            Id : parseInt(req.params.id)
+        },
+        include :  {TutorDe : true}
+    })
+
+    if (!usuario) {
+        return res.status(404).json({ error : "Usuario no encontrado"})
+    }
+    else{
+        const hijos = usuario.TutorDe;
+        return res.json(hijos)
+    }
+}
 
 export {
     obtenerUsuarios,
     obtenerUsuarioPorId,
     editaUsuario,
     eliminarUsuario,
-    crearUsuarios
+    crearUsuarios,
+    obtenerHijos
 }

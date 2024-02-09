@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 
 router.post("/login", async (req, res)=>{
     const {CorreoElectronico, Contrasena} = req.body
-    console.log(CorreoElectronico,Contrasena);
     const usuario = await prisma.usuarios.findFirst({
         where: {
             CorreoElectronico : CorreoElectronico
@@ -20,7 +19,7 @@ router.post("/login", async (req, res)=>{
 
     const ConstraseñaVerificada = await compare(Contrasena, usuario.Contrasena )
     if (ConstraseñaVerificada) {
-       return res.send(usuario)
+       return res.send(usuario.Id)
     }
 
     if (!ConstraseñaVerificada) {

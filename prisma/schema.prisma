@@ -40,16 +40,14 @@ model grados {
 }
 
 model grupos {
-  Id          Int       @id @default(autoincrement())
-  Nombre      String?   @db.VarChar(50)
+  Id          Int        @id @default(autoincrement())
+  Nombre      String?    @db.VarChar(50)
   Cupo        Int?
   IdGrado     Int
-  Id_usuarios Int
-  grado       grados    @relation(fields: [IdGrado], references: [Id])
-  usuario     usuarios? @relation(fields: [Id_usuarios], references: [Id])
+  usuario     usuarios[]
+  grado       grados     @relation(fields: [IdGrado], references: [Id])
 
   @@index([IdGrado], map: "IdGrado")
-  @@index([Id_usuarios])
 }
 
 model metodospago {
@@ -82,7 +80,7 @@ model usuarios {
   Id_Grupo          Int?
   Rol               String?            @db.VarChar(50)
   Id_tutor          Int?
-  grupo             grupos[]
+  Grupo             grupos?            @relation(fields: [Id_Grupo], references: [Id])
   Tutor             usuarios?          @relation("Padreada", fields: [Id_tutor], references: [Id], onDelete: Restrict, onUpdate: Restrict)
   TutorDe           usuarios[]         @relation("Padreada")
   pagos             pagos[]
