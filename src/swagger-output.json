@@ -1,28 +1,30 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "Edupay Api",
+    "description": "Api para el servicio de la aplicacion edupay",
+    "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "localhost:2077/api",
   "basePath": "/",
   "schemes": [
     "http"
   ],
   "paths": {
-    "/usuarios": {
+    "/padres": {
       "get": {
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/usuarios": {
       "post": {
         "description": "",
         "parameters": [
@@ -33,6 +35,27 @@
               "type": "object",
               "properties": {
                 "Contrasena": {
+                  "example": "any"
+                },
+                "Nombre": {
+                  "example": "any"
+                },
+                "ApellidoP": {
+                  "example": "any"
+                },
+                "CorreoElectronico": {
+                  "example": "any"
+                },
+                "FotoPerfil": {
+                  "example": "any"
+                },
+                "Id_Grupo": {
+                  "example": "any"
+                },
+                "Rol": {
+                  "example": "any"
+                },
+                "Id_tutor": {
                   "example": "any"
                 }
               }
@@ -45,6 +68,17 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -86,6 +120,30 @@
               "properties": {
                 "Contrasena": {
                   "example": "any"
+                },
+                "Nombre": {
+                  "example": "any"
+                },
+                "ApellidoP": {
+                  "example": "any"
+                },
+                "ApellidoM": {
+                  "example": "any"
+                },
+                "CorreoElectronico": {
+                  "example": "any"
+                },
+                "FotoPerfil": {
+                  "example": "any"
+                },
+                "Id_Grupo": {
+                  "example": "any"
+                },
+                "Rol": {
+                  "example": "any"
+                },
+                "Id_tutor": {
+                  "example": "any"
                 }
               }
             }
@@ -101,6 +159,27 @@
         }
       },
       "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/hijos/{id}": {
+      "get": {
         "description": "",
         "parameters": [
           {

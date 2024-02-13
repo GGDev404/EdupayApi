@@ -2,8 +2,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator docs {
+  provider              = "node node_modules/prisma-docs-generator"
+  includeRelationFields = "true"
+}
+
 datasource db {
-  provider     = "postgresql"
+  provider     = "postgres"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
@@ -40,20 +45,14 @@ model grados {
 }
 
 model grupos {
-  Id          Int        @id @default(autoincrement())
-  Nombre      String?    @db.VarChar(50)
-  Cupo        Int?
-  IdGrado     Int
-  usuario     usuarios[]
-  grado       grados     @relation(fields: [IdGrado], references: [Id])
+  Id      Int        @id @default(autoincrement())
+  Nombre  String?    @db.VarChar(50)
+  Cupo    Int?
+  IdGrado Int
+  usuario usuarios[]
+  grado   grados     @relation(fields: [IdGrado], references: [Id])
 
   @@index([IdGrado], map: "IdGrado")
-}
-
-model metodospago {
-  Id          Int     @id @default(autoincrement())
-  Nombre      String? @db.VarChar(50)
-  Descripcion String? @db.VarChar(200)
 }
 
 model pagos {
@@ -73,13 +72,14 @@ model pagos {
 model usuarios {
   Id                Int                @id @default(autoincrement())
   Nombre            String?            @db.VarChar(100)
-  Apellido          String?            @db.VarChar(100)
   CorreoElectronico String?            @unique @db.VarChar(50)
   Contrasena        String?            @db.VarChar(200)
   FotoPerfil        String?            @db.VarChar(200)
   Id_Grupo          Int?
   Rol               String?            @db.VarChar(50)
   Id_tutor          Int?
+  ApellidoM         String?            @db.VarChar(100)
+  ApellidoP         String?            @db.VarChar(100)
   Grupo             grupos?            @relation(fields: [Id_Grupo], references: [Id])
   Tutor             usuarios?          @relation("Padreada", fields: [Id_tutor], references: [Id], onDelete: Restrict, onUpdate: Restrict)
   TutorDe           usuarios[]         @relation("Padreada")

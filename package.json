@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js node swagger.js",
-
     "swagger-autogen": "node swagger.js"
   },
   "author": "",
@@ -14,6 +13,7 @@
   "devDependencies": {
     "@types/node": "^20.10.6",
     "prisma": "^5.9.1",
+    "prisma-docs-generator": "^0.8.0",
     "swagger-autogen": "^2.23.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"

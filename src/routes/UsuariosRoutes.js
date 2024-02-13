@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { obtenerPadres,crearUsuarios,obtenerUsuarioPorId,editaUsuario,eliminarUsuario, obtenerHijos} from '../Controllers/UsuariosController.js'; 
+import { obtenerPadres,crearUsuarios,obtenerUsuarioPorId,editaUsuario,eliminarUsuario, obtenerHijos, obtenerUsuarios} from '../Controllers/UsuariosController.js'; 
 import swaggerUi from 'swagger-ui-express';
-import swaggerFile from './../../swagger_output.json' assert{ type: 'json'};
+import swaggerFile from './../swagger-output.json' assert{ type: 'json'};
 import { assert } from "console";
 
 const router = Router();
@@ -15,6 +15,7 @@ router.get('/usuarios/:id', obtenerUsuarioPorId)
 router.put('/usuarios/:id',editaUsuario)
 router.delete('/usuarios/:id',eliminarUsuario)
 router.get("/hijos/:id", obtenerHijos)
+router.get("/usuarios", obtenerUsuarios)
 
 
 export default router;
