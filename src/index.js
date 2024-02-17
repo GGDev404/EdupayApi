@@ -2,6 +2,7 @@
 import express from 'express'
 import UsuariosRoutes from "./routes/UsuariosRoutes.js"
 import authRoutes from "./routes/auth.js"
+import gradosRoutess from "./routes/Grados.routes.js"
 import swaggerAutogen from 'swagger-autogen';
 
 import swaggerUi from 'swagger-ui-express';
@@ -29,6 +30,7 @@ app.use(express.json())
 
 app.use(`/api`,UsuariosRoutes)
 app.use(`/api`, authRoutes)
+app.use(`/api`, gradosRoutess)
 
 const outputFile = './swagger-output.json';
 const routes = ['./routes/UsuariosRoutes.js'];

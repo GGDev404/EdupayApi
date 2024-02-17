@@ -4,7 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js node swagger.js",
+    "dev": "nodemon src/index.js  node swagger.js",
     "swagger-autogen": "node swagger.js"
   },
   "author": "",

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { obtenerPadres,crearUsuarios,obtenerUsuarioPorId,editaUsuario,eliminarUsuario, obtenerHijos, obtenerUsuarios} from '../Controllers/UsuariosController.js'; 
 import swaggerUi from 'swagger-ui-express';
-import swaggerFile from './../swagger-output.json' assert{ type: 'json'};
+import swaggerFile from '../swagger-output.json' assert{ type: 'json'};
 import { assert } from "console";
 
 const router = Router();
