@@ -77,6 +77,23 @@ const CreateUsers = async (req, res) => {
     }
 }
 
+const getAllChildrens = async (req, res) => {
+    try {
+        const Childrens = await prisma.Users.findMany({
+            where: {
+                Rol: "CHILDREN"
+            }
+        });
+        if (!Childrens) {
+            return res.status(404).json({ error: "No se encontraron hijos" })
+        }
+        return res.json(Childrens)
+    } catch (error) {
+        console.error("Error al obtener hijos:", error);
+        return res.status(500).json({ error: "Error interno del servidor" });
+    }
+}
+
 const GetUserById = async (req, res) => {
     const User = await prisma.Users.findFirst({
         where: {
@@ -187,5 +204,6 @@ export {
     GetChilds,
     GetUsers,
     uptadeImage,
-    DeleteTableUsers
+    DeleteTableUsers,
+    getAllChildrens
 }

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { GetParents, DeleteTableUsers,CreateUsers,GetUserById,EditUser,DeleteUser, GetChilds, GetUsers, uptadeImage} from '../Controllers/UsersController.js'; 
+import { GetParents, getAllChildrens, DeleteTableUsers,CreateUsers,GetUserById,EditUser,DeleteUser, GetChilds, GetUsers, uptadeImage} from '../Controllers/UsersController.js'; 
 import swaggerUi from 'swagger-ui-express';
 import uploadMiddleware from "../middleware/upload.js";
 import authMiddleware from '../middleware/auth.js';
@@ -22,6 +22,7 @@ router.get("/Users", GetUsers)
 router.put('/UsersImage/:id',uploadMiddleware,uptadeImage )
 router.get('/faker', fakerExtraActivity)
 router.delete('/deleteTableUsers', DeleteTableUsers)
+router.get('/AllChildrens', getAllChildrens)
 
 
 export default router;
