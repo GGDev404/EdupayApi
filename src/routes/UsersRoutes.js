@@ -14,7 +14,7 @@ router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 //Users
 router.get("/Fathers", authMiddleware, GetParents)
 router.post("/Users",uploadMiddleware, CreateUsers)
-router.get('/Users/:id', GetUserById)
+router.get('/UsersId/',authMiddleware, GetUserById)
 router.put('/Users/:id',EditUser)
 router.delete('/Users/:id',DeleteUser)
 router.get("/Childrens/:id", GetChilds)

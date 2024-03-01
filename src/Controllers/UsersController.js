@@ -15,7 +15,7 @@ const DeleteTableUsers = async (req, res) => {
 }
 const GetParents = async (req, res) => {
     try {
-        const Users = await prisma.Users.findMany({
+        const Users = await prisma.users.findMany({
             where: {
                 Rol: "FATHER"
             },
@@ -80,7 +80,7 @@ const CreateUsers = async (req, res) => {
 const GetUserById = async (req, res) => {
     const User = await prisma.Users.findFirst({
         where: {
-            Id: parseInt(req.params.id)
+            Id: parseInt(req.user.Id)
         }
     });
     if (!User) {
