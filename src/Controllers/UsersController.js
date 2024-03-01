@@ -162,7 +162,7 @@ const DeleteUser = async (req, res) => {
     return res.json('User Eliminado')
 }
 const GetChilds = async (req, res) => {
-    const User = await prisma.Users.findUnique({
+    const User = await prisma.users.findUnique({
         where: {
             Id: parseInt(req.params.id)
         },

@@ -12,12 +12,12 @@ const router = Router();
 router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 //Users
-router.get("/padres", authMiddleware, GetParents)
+router.get("/Fathers", authMiddleware, GetParents)
 router.post("/Users",uploadMiddleware, CreateUsers)
 router.get('/Users/:id', GetUserById)
 router.put('/Users/:id',EditUser)
 router.delete('/Users/:id',DeleteUser)
-router.get("/hijos/:id", GetChilds)
+router.get("/Childrens/:id", GetChilds)
 router.get("/Users", GetUsers)  
 router.put('/UsersImage/:id',uploadMiddleware,uptadeImage )
 router.get('/faker', fakerExtraActivity)
