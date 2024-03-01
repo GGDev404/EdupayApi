@@ -12,7 +12,7 @@ const router = Router();
 router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 //Users
-router.get("/Fathers", authMiddleware, GetParents)
+router.get("/Fathers", GetParents)
 router.post("/Users",uploadMiddleware, CreateUsers)
 router.get('/UsersId/',authMiddleware, GetUserById)
 router.put('/Users/:id',EditUser)
