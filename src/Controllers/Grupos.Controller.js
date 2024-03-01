@@ -1,38 +1,40 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-const obtenerTodosLosGrados = async (req, res) => {
+ export const GetAllgroups = async (req, res) => {
     try {
-        const grados = await prisma.grados.findMany()
-        return res.json(grados)
+        const groups = await prisma.groups.findMany()
+        return res.json(groups)
     } catch (error) {
         return res.status(500).json({error : "Error interno en el servidor"})
     }
 }
 
-const crearGrados = async (req, res) => {
+ export const CreateGroup = async (req, res) => {
     try {
-        await prisma.grados.update({
+        await prisma.groups.update({
             data : {
-                Nombre : req.body.Nombre,
-                IdPeriodo : req.body.IdPeriodo
+                Name : req.body.Name,
+                Id_Grade : parseInt(req.body.Id_Grade),
+                Quota : parseInt(req.body.Quota)
             }
         })
-        return res.json("Grado creado con exito")
+        return res.json("Grade creado con exito")
     } catch (error) {
         return res.status(500).json({error : "Error interno en el servidor"})
     }
 }
 
-const editarGrados = async (req,res ) => {
+export const EdtiGroups = async (req,res ) => {
     try {
-        await prisma.grados.update({
+        await prisma.groups.update({
             where: {
                 Id : parseInt(req.params.Id)
             },
             data : {
-                Nombre : req.body.Nombre,
-                IdPeriodo : req.body.IdPeriodo
+                Name : req.body.Name,
+                Id_Grade : parseInt(req.body.Id_Grade),
+                Quota : parseInt(req.body.Quota)
             }
         })
 
@@ -43,10 +45,10 @@ const editarGrados = async (req,res ) => {
     }
 }
 
-const eliminarGrados = async (req,res) => {
+export const DeleteGroup = async (req,res) => {
     try {
         const id = parseInt(req.params.Id)
-    await prisma.grados.delete({
+    await prisma.groups.delete({
         where : {
             Id :id
         }
@@ -54,31 +56,23 @@ const eliminarGrados = async (req,res) => {
     
     )
 
-    return res.json("Usuario Eliminado")
+    return res.json("Group Eliminado")
 
     } catch (error) {
         return res.status(500).json({error : "Error interno en el servidor"})
     }
 }
 
-const obtenerGradoPorId = async (req,res) => {
+export  const GetGradeById = async (req,res) => {
     try {
         const id = parseInt(req.params.Id)
-        const gradoEncontrado = await prisma.grados.findUnique({
+        const GradeFound = await prisma.groups.findUnique({
             where : {
                 Id : id
             }
         })
-        return res.json(gradoEncontrado)
+        return res.json(GradeFound)
     } catch (error) {
         return res.status(500).json({error : "Error interno en el servidor"})
     }
-}
-
-export {
-    obtenerGradoPorId,
-    eliminarGrados,
-    editarGrados,
-    crearGrados,
-    obtenerTodosLosGrados
 }

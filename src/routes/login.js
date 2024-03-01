@@ -1,28 +1,30 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 import { error } from "console";
+import jwt from "jsonwebtoken";
 import { encrypt, compare } from '../helpper/handleBcryps.js';
 const router = Router();
 const prisma = new PrismaClient();
 
 router.post("/login", async (req, res) => {
-    const { CorreoElectronico, Contrasena } = req.body;
+    const { Email, Password } = req.body;
 
     try {
-        const usuario = await prisma.usuarios.findFirst({
+        const User = await prisma.Users.findFirst({
             where: {
-                CorreoElectronico: CorreoElectronico
+                Email: Email
             }
         });
 
-        if (!usuario) {
-            return res.status(404).json({ error: 'Usuario no encontrado' });
+        if (!User) {
+            return res.status(404).json({ error: 'User no encontrado' });
         }
 
-        const contrasenaVerificada = await compare(Contrasena, usuario.Contrasena);
+        const PasswordVerificada = await compare(Password, User.Password);
 
-        if (contrasenaVerificada) {
-            return res.json({ userId: usuario.Id });
+        if (PasswordVerificada) {
+            const token = jwt.sign(User, process.env.secretJwt, {expiresIn: '1h'});
+            return res.json({ token });
         } else {
             return res.status(404).json({ error: 'Contraseña incorrecta' });
         }

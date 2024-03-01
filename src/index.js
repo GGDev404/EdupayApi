@@ -1,9 +1,12 @@
 
 import express from 'express'
-import UsuariosRoutes from "./routes/UsuariosRoutes.js"
-import authRoutes from "./routes/auth.js"
-import gradosRoutess from "./routes/Grados.routes.js"
+import UsersRoutes from "./routes/UsersRoutes.js"
+import authRoutes from "./routes/login.js"
+import GradesRoutess from "./routes/GradesRoutes.js"
 import swaggerAutogen from 'swagger-autogen';
+import periodosroutes from './routes/PeriodosRoutes.js';
+import GruposRoutes from './routes/GruposRoutes.js';
+
 
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
@@ -28,14 +31,14 @@ const app = express()
 
 app.use(express.json())
 
-app.use(`/api`,UsuariosRoutes)
+app.use(`/api`,UsersRoutes)
 app.use(`/api`, authRoutes)
-app.use(`/api`, gradosRoutess)
+app.use(`/api`, GradesRoutess)
+app.use(`/api`, periodosroutes)
+app.use('/api', GruposRoutes )
 
-const outputFile = './swagger-output.json';
-const routes = ['./routes/UsuariosRoutes.js'];
 
-swaggerAutogen()(outputFile, routes, doc);
+
 
 app.use('/api-docs', swaggerUi.serve);
 app.get('/api-docs', swaggerUi.setup(swaggerDocument));
