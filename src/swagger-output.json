@@ -11,7 +11,7 @@
     "http"
   ],
   "paths": {
-    "/padres": {
+    "/Fathers": {
       "get": {
         "description": "",
         "responses": {
@@ -86,17 +86,9 @@
         }
       }
     },
-    "/Users/{id}": {
+    "/UsersId/": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -105,7 +97,9 @@
             "description": "Not Found"
           }
         }
-      },
+      }
+    },
+    "/Users/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -187,7 +181,7 @@
         }
       }
     },
-    "/hijos/{id}": {
+    "/Childrens/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -248,6 +242,22 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/AllChildrens": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"

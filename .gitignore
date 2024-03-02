@@ -2,4 +2,3 @@ node_modules
 # Keep environment variables out of version control
 .env
 git remote add origin https://github.com/GGDev404/EdupayApi.git
-src/uploads
