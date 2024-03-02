@@ -37,6 +37,8 @@ app.use(`/api`, GradesRoutess)
 app.use(`/api`, periodosroutes)
 app.use('/api', GruposRoutes )
 
+app.use('/uploads', express.static('/src/uploads'));
+
 
 
 
