@@ -6,7 +6,7 @@ import GradesRoutess from "./routes/GradesRoutes.js"
 import swaggerAutogen from 'swagger-autogen';
 import periodosroutes from './routes/PeriodosRoutes.js';
 import GruposRoutes from './routes/GruposRoutes.js';
-
+import cors from 'cors';
 
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
@@ -25,9 +25,12 @@ const doc = {
   };
 
 
-
+  const corsOptions = {
+    origin: 'https://edupay-oi22.onrender.com', // Reemplaza con tu dominio permitido
+    optionsSuccessStatus: 200 // Algunos navegadores pueden requerir esta opción para aceptar la respuesta
+  };
 const app = express()
-
+app.use(cors(corsOptions));
 
 app.use(express.json())
 

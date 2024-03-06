@@ -157,7 +157,6 @@ const EditUser = async (req, res) => {
                 Firs_Name : req.body.Firs_Name,
                 Email : req.body.Email,
                 Password : req.body.Password,
-                Profile_Photo : req.body.Profile_Photo,
                 Id_Group : parseInt(req.body.Id_Group),
                 Rol : req.body.Rol,
                 Id_tutor : parseInt(req.body.Id_tutor)
