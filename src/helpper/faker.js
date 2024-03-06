@@ -11,9 +11,9 @@ const prisma = new PrismaClient();
       Email: 'Admin' + i + '@gmail.com',
       Password: "123",
       Profile_Photo: faker.image.avatar(),
-      Rol: 'ADMIN',
+      Role: 'ADMIN',
       //Id_Group: faker.datatype.number(1, 6),
-      //Id_tutor: faker.datatype.number(1, 59)
+      //Id_tutor: faker.datatype.number(1, 31)
 
     };
 
@@ -46,16 +46,63 @@ const fakerExtraActivity = async  (req, res) => {
   res.json({ message: "10 activiades creados" });
 }
 const fakerGrades = async  (req, res) => {
+  let grades = ['1ro', '2do', '3ro', '4to', '5to', '6to'];
 
-  for (let i = 1; i < 7; i++) {
+  for (let i = 0; i < 6; i++) {
     const fakeGrade = {
-      Name: i,
+      Name: (grades[i]),
+      Id_Period: 20
+
     };
 
-    await prisma.grades.create({ data: fakeGrade });
+    await prisma.grade.create({ data: fakeGrade });
   }
 
-  res.json({ message: "10 grados creados" });
+  res.json({ message: "grados creados" });
 }
 
-export default fakerExtraActivity;
+
+const fakerGrups = async  (req, res) => {
+  let grades = ['A', 'B', 'C', 'D'];
+
+  for (let y =11; y < 73; y++) {
+    for (let i = 0; i < 4; i++) {
+      const fakeGroup = {
+        Name: grades[i],
+        Quota : 30,
+        Id_Grade: y ,
+      };
+      await prisma.groups.create({ data: fakeGroup });
+    }
+  }
+  res.json({ message: "grupos creados" });
+}
+
+
+
+const fakerPeriod = async (req,res) => {
+  let periodos = ['Enero-Marzo-2025', 'Abril-Junio-2025', 'Julio-Septiembre-2025', 'Octubre-Diciembre-2025'];
+
+  for (let i = 0; i < 4; i++) {
+    const startDate = new Date();
+    startDate.setFullYear(2025);
+    startDate.setMonth(i * 3); // Set the start date to the beginning of the period
+    startDate.setDate(1); // Set the day to the first of the month
+
+    const endDate = new Date(startDate);
+    endDate.setMonth(endDate.getMonth() + 3); // Set the end date to 3 months after the start date
+    endDate.setDate(0); // Set the day to the last day of the previous month
+
+    const fakePeriod = {
+      Name: periodos[i],
+      Price: 5000,
+      Start_date: startDate,
+      Final_Date: endDate,
+    };
+
+    await prisma.period.create({ data: fakePeriod });
+  }
+  res.json({ message: "periodos creados" });
+}
+
+export default fakerGrups;

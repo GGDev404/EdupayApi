@@ -1,28 +1,31 @@
-import { Router } from "express";
+import e, { Router } from "express";
 import { GetParents, getAllChildrens, DeleteTableUsers,CreateUsers,GetUserById,EditUser,DeleteUser, GetChilds, GetUsers, uptadeImage} from '../Controllers/UsersController.js'; 
 import swaggerUi from 'swagger-ui-express';
-import uploadMiddleware from "../middleware/upload.js";
+import imageUploadController from "../middleware/upload.js";
 import authMiddleware from '../middleware/auth.js';
 import swaggerFile from '../swagger-output.json' assert{ type: 'json'};
-import fakerExtraActivity from '../helpper/faker.js';
-import { assert } from "console";
+import fakerGrups from '../helpper/faker.js';
+import multer from "multer";
+
+
+const upload = multer({ dest: '../uploads/' })
 
 const router = Router();
 
 router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 //Users
-router.get("/Fathers", GetParents)
-router.post("/Users",uploadMiddleware, CreateUsers)
+router.get("/Fathers",authMiddleware, GetParents)
+router.post("/Users" ,authMiddleware,upload.single('image') ,imageUploadController, CreateUsers)
 router.get('/UsersId/',authMiddleware, GetUserById)
-router.put('/Users/:id',EditUser)
-router.delete('/Users/:id',DeleteUser)
-router.get("/Childrens/:id", GetChilds)
-router.get("/Users", GetUsers)  
-router.put('/UsersImage/:id',uploadMiddleware,uptadeImage )
-router.get('/faker', fakerExtraActivity)
-router.delete('/deleteTableUsers', DeleteTableUsers)
-router.get('/AllChildrens', getAllChildrens)
+router.put('/Users/:id',authMiddleware,EditUser)
+router.delete('/Users/:id',authMiddleware,DeleteUser)
+router.get("/Childrens/:id",authMiddleware, GetChilds)
+router.get("/Users",authMiddleware, GetUsers)  
+router.put('/UsersImage/:id',authMiddleware,upload.single('image') ,imageUploadController,uptadeImage )
+router.get('/faker', fakerGrups)
+router.delete('/deleteTableUsers',authMiddleware, DeleteTableUsers)
+router.get('/AllChildrens',authMiddleware, getAllChildrens)
 
 
 export default router;

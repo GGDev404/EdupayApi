@@ -59,7 +59,7 @@ model Groups {
 model Payments {
   Id             Int                  @id @default(autoincrement())
   Mount          Decimal              @db.Decimal(10, 2)
-  Payment_Date  DateTime             @default(now()) @db.Timestamp(0)
+  Payment_Date  DateTime @default(now())
   Payment_Method Int
   Regerence     String               @db.Char(10)
   Status         String               @db.VarChar(50)
@@ -72,11 +72,7 @@ model Payments {
   @@index([Id])
 }
 
-enum EnumRol {
-  ADMIN
-  FATHER
-  CHILDREN
-}
+
 
 model Users {
   Id            Int            @id @default(autoincrement())
@@ -85,7 +81,7 @@ model Users {
   Password      String?        @db.VarChar(200)
   Profile_Photo String?        @db.VarChar(200)
   Id_Group      Int?
-  Rol           EnumRol?       @default(FATHER)
+  Role String @default("CHILDREN") 
   refreshToken  String?        @db.VarChar(50)
   Id_tutor      Int?
   Firs_Name     String?        @db.VarChar(100)

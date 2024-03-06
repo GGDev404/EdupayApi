@@ -1,19 +1,21 @@
-import multer  from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
 
-// Set up multer storage
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'src/uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
 });
 
-// Create multer instance
-const upload = multer({ storage: storage });
 
-// Middleware function to handle image uploads
-const uploadMiddleware = upload.single('image');
+const imageUploadController = async (req, res, next) => {
+  try {
+    const image = await cloudinary.uploader.upload(req.file.path);
+    req.imageUrl = image.url;
+    next();
+  } catch (error) {
+    console.error();
+    res.status(error.status).json('error', error);
+  }
+};
 
-export default  uploadMiddleware;
+export default imageUploadController;

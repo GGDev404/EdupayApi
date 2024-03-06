@@ -45,31 +45,34 @@ const GetUsers = async (req, res) => {
 
 const CreateUsers = async (req, res) => {
     try {
-    const ContraseñaHasheada = await encrypt(req.body.Password)
-    req.body.Password = ContraseñaHasheada
-    let Profile_Photo = (req.file && req.file.path) ? req.file.path : null;
-    
+        const ContraseñaHasheada = await encrypt(req.body.Password)
+        req.body.Password = ContraseñaHasheada
+        let Profile_Photo = req.imageUrl;
 
-    const NewUser = await prisma.Users.create(
-        {
-            data: {
-                Name : req.body.Name,
-                Last_Name : req.body.Last_Name,
-                Firs_Name : req.body.Firs_Name,
-                Email : req.body.Email,
-                Password : req.body.Password,
-                Profile_Photo : Profile_Photo,
-                Id_Group : parseInt(req.body.Id_Group),
-                Rol : req.body.Rol,
-                Id_tutor : parseInt(req.body.Id_tutor)
-            }
+        const data = {
+            Name : req.body.Name,
+            Last_Name : req.body.Last_Name,
+            Firs_Name : req.body.Firs_Name,
+            Email : req.body.Email,
+            Password : req.body.Password,
+            Profile_Photo : Profile_Photo,
+            Role : req.body.Role,
+        };
+
+        if (req.body.Id_Group) {
+            data.Id_Group = parseInt(req.body.Id_Group);
         }
-    );
 
-    if (!NewUser) {
-        return res.status(404).json({ error: "No se pudo crear el User" })
-    }
-    return res.json(NewUser)
+        if (req.body.Id_tutor) {
+            data.Id_tutor = parseInt(req.body.Id_tutor);
+        }
+
+        const NewUser = await prisma.Users.create({ data });
+
+        if (!NewUser) {
+            return res.status(404).json({ error: "No se pudo crear el User" })
+        }
+        return res.json(NewUser)
     } 
     catch (error) {
         console.error("Error al crear User:", error);
