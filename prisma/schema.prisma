@@ -81,7 +81,7 @@ model Users {
   Password      String?        @db.VarChar(200)
   Profile_Photo String?        @db.VarChar(200)
   Id_Group      Int?
-  Role String @default("CHILDREN") 
+  Rol String @default("CHILDREN") 
   refreshToken  String?        @db.VarChar(50)
   Id_tutor      Int?
   Firs_Name     String?        @db.VarChar(100)
