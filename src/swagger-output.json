@@ -49,10 +49,10 @@
                 "Email": {
                   "example": "any"
                 },
-                "Id_Group": {
+                "Role": {
                   "example": "any"
                 },
-                "Rol": {
+                "Id_Group": {
                   "example": "any"
                 },
                 "Id_tutor": {
@@ -128,9 +128,6 @@
                   "example": "any"
                 },
                 "Email": {
-                  "example": "any"
-                },
-                "Profile_Photo": {
                   "example": "any"
                 },
                 "Id_Group": {
