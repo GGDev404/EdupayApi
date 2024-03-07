@@ -8,7 +8,7 @@ import fakerGrups from '../helpper/faker.js';
 import multer from "multer";
 
 
-const upload = multer({ dest: '../uploads/' })
+const upload = multer({ dest: '../uploads/' })  
 
 const router = Router();
 
