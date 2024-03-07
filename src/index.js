@@ -25,30 +25,25 @@ const doc = {
   };
 
 
-  const corsOptions = {
-    origin: 'https://edupay-oi22.onrender.com', // Reemplaza con tu dominio permitido
-    optionsSuccessStatus: 200 // Algunos navegadores pueden requerir esta opción para aceptar la respuesta
-  };
-const app = express()
+  const app = express();
 
+  app.use(express.json());
 
-app.use(express.json())
-
-app.use(`/api`,UsersRoutes)
-app.use(`/api`, authRoutes)
-app.use(`/api`, GradesRoutess)
-app.use(`/api`, periodosroutes)
-app.use('/api', GruposRoutes )
-
-app.use('/uploads', express.static('/src/uploads'));
-
-
-
-
-app.use('/api-docs', swaggerUi.serve);
-app.get('/api-docs', swaggerUi.setup(swaggerDocument));
-
-app.use(cors);
-
-app.listen(2077)
-console.log('server on port ', 2077);
+  app.use(cors());
+  
+  
+  
+  app.use(`/api`, UsersRoutes);
+  app.use(`/api`, authRoutes);
+  app.use(`/api`, GradesRoutess);
+  app.use(`/api`, periodosroutes);
+  app.use('/api', GruposRoutes);
+  
+  app.use('/uploads', express.static('/src/uploads'));
+  
+  app.use('/api-docs', swaggerUi.serve);
+  app.get('/api-docs', swaggerUi.setup(swaggerDocument));
+  
+  app.listen(2077);
+  console.log('server on port ', 2077);
+  
