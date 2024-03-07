@@ -30,7 +30,7 @@ const doc = {
     optionsSuccessStatus: 200 // Algunos navegadores pueden requerir esta opción para aceptar la respuesta
   };
 const app = express()
-app.use(cors(corsOptions));
+app.use(cors);
 
 app.use(express.json())
 
