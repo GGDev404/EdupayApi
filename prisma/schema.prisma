@@ -82,7 +82,6 @@ model Users {
   Profile_Photo String?        @db.VarChar(200)
   Id_Group      Int?
   Rol           String 
-  refreshToken  String?        @db.VarChar(50)
   Id_tutor      Int?
   Firs_Name     String?        @db.VarChar(100)
   Last_Name     String?        @db.VarChar(100)

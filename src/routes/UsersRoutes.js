@@ -4,7 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 import imageUploadController from "../middleware/upload.js";
 import authMiddleware from '../middleware/auth.js';
 import swaggerFile from '../swagger-output.json' assert{ type: 'json'};
-import fakerGrups from '../helpper/faker.js';
+import createFakeUsers from '../helpper/faker.js';
 import multer from "multer";
 
 
@@ -23,7 +23,7 @@ router.delete('/Users/:id',authMiddleware,DeleteUser)
 router.get("/Childrens/:id",authMiddleware, GetChilds)
 router.get("/Users",authMiddleware, GetUsers)  
 router.put('/UsersImage/:id',authMiddleware,upload.single('image') ,imageUploadController,uptadeImage )
-router.get('/faker', fakerGrups)
+router.get('/faker', createFakeUsers)
 router.delete('/deleteTableUsers',authMiddleware, DeleteTableUsers)
 router.get('/AllChildrens',authMiddleware, getAllChildrens)
 

@@ -3,15 +3,15 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
  const createFakeUsers = async  (req, res) => {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 30; i++) {
     const fakeUser = {
       Name: faker.person.firstName(),
       Last_Name: faker.person.lastName(),
       Firs_Name: faker.person.lastName(),
-      Email: 'Admin' + i + '@gmail.com',
+      Email: 'FATHER' + i + '@gmail.com',
       Password: "123",
       Profile_Photo: faker.image.avatar(),
-      Rol: 'ADMIN',
+      Rol: 'FATHER',
       //Id_Group: faker.datatype.number(1, 6),
       //Id_tutor: faker.datatype.number(1, 31)
 
@@ -105,4 +105,4 @@ const fakerPeriod = async (req,res) => {
   res.json({ message: "periodos creados" });
 }
 
-export default fakerGrups;
+export default createFakeUsers;
