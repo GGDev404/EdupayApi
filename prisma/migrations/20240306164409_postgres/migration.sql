@@ -63,7 +63,7 @@ CREATE TABLE "Users" (
     "Password" VARCHAR(200),
     "Profile_Photo" VARCHAR(200),
     "Id_Group" INTEGER,
-    "Role" TEXT NOT NULL DEFAULT 'CHILDREN',
+    "Rol" TEXT NOT NULL DEFAULT 'CHILDREN',
     "refreshToken" VARCHAR(50),
     "Id_tutor" INTEGER,
     "Firs_Name" VARCHAR(100),

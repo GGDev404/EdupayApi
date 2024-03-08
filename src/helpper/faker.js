@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
       Email: 'Admin' + i + '@gmail.com',
       Password: "123",
       Profile_Photo: faker.image.avatar(),
-      Role: 'ADMIN',
+      Rol: 'ADMIN',
       //Id_Group: faker.datatype.number(1, 6),
       //Id_tutor: faker.datatype.number(1, 31)
 

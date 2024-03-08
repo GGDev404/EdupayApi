@@ -49,7 +49,7 @@
                 "Email": {
                   "example": "any"
                 },
-                "Role": {
+                "Rol": {
                   "example": "any"
                 },
                 "Id_Group": {

@@ -32,6 +32,7 @@ const GetParents = async (req, res) => {
     }
 }
 
+
 const GetUsers = async (req, res) => {
     try {
         const Users = await prisma.Users.findMany({});
@@ -56,7 +57,7 @@ const CreateUsers = async (req, res) => {
             Email : req.body.Email,
             Password : req.body.Password,
             Profile_Photo : Profile_Photo,
-            Role : req.body.Role,
+            Rol : req.body.Rol,
         };
 
         if (req.body.Id_Group) {
